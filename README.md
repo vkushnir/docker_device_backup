@@ -34,6 +34,8 @@ Use volume from docerised TFTP and/or FTP server.
 #### SNMP Others
 - SNMP_TIMEOUT=**3** &mdash; timeout in seconds to wait snmp device answer
 - SNMP_RETRIES=**1** &mdash; count retry requests from snmp device
+- MIBS_PATH="**/usr/local/share/snmp/mibs**" &mdash; path to additional Asn1 mib modules
+- PySNMP_MIBS_PATH="**/usr/local/share/snmp/pysnmp_mibs**" &mdash; path to additional PySNMP compiled mib modules
 
 ### Device configuration store settings
 - CONFIG_COMPARE=**1** &mdash; compare downloaded config with previous in the same folder
@@ -61,7 +63,7 @@ Use volume from docerised TFTP and/or FTP server.
 - SRV_FTP_PATH="**/var/ftp**" &mdash; Default FTP server volume location
 
 ### Others
-- PYTHONPATH="/usr/local/lib/python" &mdash; Path to python modules volume
+- PYTHONPATH="**/usr/local/lib/python**" &mdash; path to user python modules
 
 ## Docker Volumes
 - /usr/local/bin &mdash; folder for python executables

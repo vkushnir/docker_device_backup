@@ -1,12 +1,24 @@
 # Device Backup Service
 *Listen syslog messages and if someone do something download config from device*
 
+Service listen syslog messages and if find something like "**User some_user logout**" or "**%SYS-5-CONFIG_I:**", run python class **backup.main.backup.send(msg)**.
+
+msg &mdash; is value-pairs dict wich contains all variables from syslog message wich can be used for fomating data folders and stored config files.
+
+Use volume from docerised TFTP and/or FTP server.
+
+### RUN
+    docker run -d --name tftpd -p 69/udp vkushnir/tftp-hpa
+    docker run -d --volumes-from tftpd --name device-backup -p 514/udp --link tftpd -v /data/config:/var/config -e SNMP_COMMUNITY="public" -e SRV_TFTP_ADDR="8.8.8.8" vkushnir/device-backup
+    
 ## Docker Variables
 
 ### SNMP
 - SNMP_VERSION=**2c** &mdash; snmp version 1,2c,3
+
 #### SNMP Version 1 or 2c specific
 - SNMP_COMMUNITY="**public**" &mdash; default community string
+
 #### SNMP Version 3 specific
 - SNMP_APROTOCOL="**MD5**" &mdash; default authentication protocol (**MD5**|**SHA**)
 - SNMP_APASSPHRASE="**pass**" &mdash; default authentication protocol pass phrase
@@ -18,6 +30,7 @@
 - SNMP_PPROTOCOL="**DES**" &mdash; default privacy protocol (**DES**|**AES**)
 - SNMP_PPASSPHRASE="**pass**" &mdash; default privacy protocol pass phrase
 - SNMP_BOOTS="" &mdash; default destination engine boots/time
+
 #### SNMP Others
 - SNMP_TIMEOUT=**3** &mdash; timeout in seconds to wait snmp device answer
 - SNMP_RETRIES=**1** &mdash; count retry requests from snmp device

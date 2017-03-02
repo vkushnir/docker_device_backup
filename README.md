@@ -46,7 +46,7 @@ Use volume from docerised TFTP and/or FTP server.
 
 ### Database
 - DB_FILE="**devices.db**" &mdash; SQLite database file name
-- DB_PATH="**/var/mysqlite**" &mdash; SQLite database file location
+- DB_PATH="**/var/sqlite**" &mdash; SQLite database file location
 - DB_MEMORY=**1** &mdash; Load full database to memory on init stage
 - DB_SAVE=**1** &mdash; Save database to disk on uninit stage (require DB_MEMORY=1)
 
@@ -64,6 +64,7 @@ Use volume from docerised TFTP and/or FTP server.
 - PYTHONPATH="/usr/local/lib/python" &mdash; Path to python modules volume
 
 ## Docker Volumes
+- /usr/local/bin &mdash; folder for python executables
 - /usr/local/lib/python &mdash; Python modules
 - /usr/local/share/snmp/mibs &mdash; ASN1 mib files
 - /usr/local/share/snmp/pysnmp_mibs &mdash; PySNMP compiled modules 

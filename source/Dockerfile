@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM vkushnir/pysnmp-py2
 MAINTAINER Vladimir Kushnir <vkushnir@gmail.com>
 
 LABEL \
@@ -6,18 +6,6 @@ LABEL \
     description="Backup running-config from network devices"
 
 ENV \
-    SNMP_VERSION=2c \
-    SNMP_COMMUNITY="public" \
-    SNMP_APROTOCOL="MD5" \
-    SNMP_APASSPHRASE="pass" \
-    SNMP_SENGINE-ID="00000000" \
-    SNMP_CENGINE-ID="00000000" \
-    SNMP_LEVEL="noAuthNoPriv" \
-    SNMP_CONTEXT="backup" \
-    SNMP_USER-NAME="backup" \
-    SNMP_PPROTOCOL="DES" \
-    SNMP_PPASSPHRASE="pass" \
-    SNMP_BOOTS_TIME="" \
     SNMP_TIMEOUT=3 \
     SNMP_RETRIES=1 \
     CONFIG_COMPARE=1 \ 
@@ -27,7 +15,7 @@ ENV \
     CONFIG_FILE="{l0ip}_{syslog[R_YEAR]}{syslog[R_MONTH]}{syslog[R_DAY]}_{n:02}.conf" \
     CONFIG_DIFF="{l0ip}_{syslog[R_YEAR]}{syslog[R_MONTH]}{syslog[R_DAY]}.diff" \
     DB_FILE="devices.db" \
-    DB_PATH="/var/mysqlite" \
+    DB_PATH="/var/sqlite" \
     DB_MEMORY=0 \
     DB_SAVE=1 \
     SRV_SLEEP=60 \
@@ -37,22 +25,13 @@ ENV \
     SRV_TFTP_ADDR="172.0.0.1" \
     SRV_TFTP_PATH="/var/tftp" \
     SRV_FTP_ADDR="172.0.0.1" \
-    SRV_FTP_PATH="/var/ftp" \
-    PYTHONPATH="/usr/local/lib/python"
+    SRV_FTP_PATH="/var/ftp"
 
 RUN apk update && apk upgrade && \
-    apk del --purge rsyslog && \
-    rm -f /var/log/* /sbin/rsyslogd && \
-    apk add --no-cache --update diffutils syslog-ng sqlite python2 py2-pip py2-snmp && \
-    pip install --upgrade pip && \
-    pip install pysmi pysnmp_mibs pysnmp_apps && \
+    apk add --no-cache --update diffutils syslog-ng sqlite && \
     rm /var/cache/apk/*
 
 VOLUME \
-    /usr/local/bin \
-    /usr/local/lib/python \
-    /usr/local/share/snmp/mibs \
-    /usr/local/share/snmp/pysnmp_mibs \
     /etc/syslog-ng \
     /etc/dev-backup \
     /etc/vsftpd \

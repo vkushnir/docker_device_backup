@@ -89,17 +89,29 @@ class BackupDeviceVendor(object):
         return True
 
     def wait(self, obj, idx):
-        i = server.save_timeout
         ot = ObjectType(ObjectIdentity(self.mib, obj, idx))
         cs, err = snmp.get(self.conn, ot)
         if err:
             return False
-        sprint("init", i, self.data['SOURCEIP'], self.mib, cs[0].prettyPrint())
-        while i > 0 and cs[0][1] == self.cs_running and not err:
+        sprint("init", self.data['SOURCEIP'], self.mib, cs[0].prettyPrint())
+
+        i = server.save_timeout // 2
+        while i > 0 and cs[0][1] == self.cs_waiting and not err:
             time.sleep(1)
             i -= 1
             cs, err = snmp.get(self.conn, ot)
             sprint("wait", i, self.data['SOURCEIP'], self.mib, cs[0].prettyPrint())
+            if err:
+                return False
+        if i <= 0:
+            eprint("Download config", self.data['SOURCEIP'], self.mib, 'did not start in timeout!')
+
+        i = server.save_timeout
+        while i > 0 and cs[0][1] == self.cs_running and not err:
+            time.sleep(1)
+            i -= 1
+            cs, err = snmp.get(self.conn, ot)
+            sprint("downloading", i, self.data['SOURCEIP'], self.mib, cs[0].prettyPrint())
             if err:
                 return False
         if i <= 0:

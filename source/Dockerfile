@@ -8,7 +8,7 @@ LABEL \
 ENV \
     SNMP_TIMEOUT=3 \
     SNMP_RETRIES=1 \
-    CONFIG_COMPARE=1 \ 
+    CONFIG_COMPARE=1 \
     CONFIG_NODUP=1 \
     CONFIG_DIFF_OPT="-iEZbBu" \
     CONFIG_FOLDER="/var/config/{syslog[R_YEAR]}/{l0ip}/{syslog[R_YEAR]}-{syslog[R_MONTH]}" \
@@ -42,7 +42,6 @@ VOLUME \
     /var/log
 
 COPY syslog-ng.conf /etc/syslog-ng/
-COPY backup /usr/local/lib/python/backup
 COPY mibs/* /usr/local/share/snmp/mibs/
 COPY pysnmp_mibs/* /usr/local/share/snmp/pysnmp_mibs/
 
@@ -50,4 +49,3 @@ EXPOSE 514/udp 514/tcp
 
 ENTRYPOINT ["syslog-ng"]
 CMD ["--foreground", "--verbose", "--trace"]
-

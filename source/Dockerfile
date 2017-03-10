@@ -42,6 +42,7 @@ VOLUME \
     /var/log
 
 COPY syslog-ng.conf /etc/syslog-ng/
+COPY python/ /usr/local/lib/python/
 COPY mibs/* /usr/local/share/snmp/mibs/
 COPY pysnmp_mibs/* /usr/local/share/snmp/pysnmp_mibs/
 

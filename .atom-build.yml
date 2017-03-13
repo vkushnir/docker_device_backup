@@ -1,7 +1,7 @@
 cmd: "docker"
-name: "vkushnir/device-backup"
+name: "vkushnir/syslog-ng"
 args:
     - "build"
     - "{PROJECT_PATH}\\source\\"
     - "--tag"
-    - "vkushnir/device-backup"
+    - "vkushnir/syslog-ng"

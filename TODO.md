@@ -1,5 +1,7 @@
 # TODO
 
+## syslog-ng
+- [ ] Split **syslog-ng.conf** to files
 ## Server
 - [x] External TFTP Server
 - [ ] External FTP Server

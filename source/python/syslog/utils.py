@@ -19,25 +19,3 @@ def eprint(*args, **kwargs):
 def sprint(*args, **kwargs):
     #print(datetime.datetime.now(), ":", *args, file=sys.stdout, **kwargs)
     print("std:", *args, file=sys.stdout, **kwargs)
-
-# Exceptions
-class ValueError(Exception):
-    def __init__(self, msg):
-        self.msg = msg
-
-    def __str__(self):
-        return self.msg
-
-class ConfigFileError(Exception):
-    def __init__(self, msg):
-        self.msg = msg
-
-    def __str__(self):
-        return self.msg
-
-class DiffProcedureError(Exception):
-    def __init__(self, msg):
-        self.msg = msg
-
-    def __str__(self):
-        return self.msg

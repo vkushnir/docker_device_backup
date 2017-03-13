@@ -7,7 +7,8 @@ __all__ = ['get', 'set', 'authentification', 'engine', 'mibViewController']
 import os, copy, random
 import pysnmp.smi
 from pysnmp.hlapi import *
-from utils import eprint, sprint, str_to_bool, ValueError
+from syslog.utils import eprint, sprint, str_to_bool
+from syslog.classes import ValueError
 import database
 
 class BackupSNMP(object):

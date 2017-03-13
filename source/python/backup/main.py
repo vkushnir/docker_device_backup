@@ -6,42 +6,12 @@ __all__ = ['backup']
 # Import required python libraries
 import os, sys
 import sqlite3
-import config
-import database
-import server
+import config, database, server
 from threads import BackupThread
-from utils import eprint, sprint
+from syslog.utils import eprint, sprint
+from syslog import classes
 
-class syslog(object):
-
-    def open(self):
-        """Open a connection to the target service"""
-        return True
-
-    def close(self):
-        """Close the connection to the target service"""
-        pass
-
-    def is_opened(self):
-        """Check if the connection to the target is able to receive messages"""
-        return True
-
-    def init(self):
-        """This method is called at initialization time"""
-        return True
-
-    def deinit(self):
-        """This method is called at deinitialization time"""
-        pass
-
-    def send(self, msg):
-        """Send a message to the target service
-
-        It should return True to indicate success, False will suspend the
-        destination for a period specified by the time-reopen() option."""
-        pass
-
-class backup(syslog):
+class backup(classes.syslog):
     def __init__(self):
         sprint('Create BACKUP instance')
         self.thread = BackupThread()

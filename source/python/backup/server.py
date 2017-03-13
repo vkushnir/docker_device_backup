@@ -6,7 +6,7 @@ __all__ = ['server']
 # Import required python libraries
 import os, sys
 from subprocess import Popen, PIPE
-from utils import sprint, eprint, str_to_bool
+from syslog.utils import sprint, eprint, str_to_bool
 
 class server(object):
     def __init__(self, srv_type):

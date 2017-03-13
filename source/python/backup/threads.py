@@ -4,12 +4,9 @@
 # Import required python libraries
 import os
 import threading, time, random
-import snmp
-import config
-import database
-import server
+import snmp, config, database, server
 from pysnmp.hlapi import *
-from utils import sprint, eprint
+from syslog.utils import sprint, eprint
 
 class BackupThread(object):
     def __init__(self):

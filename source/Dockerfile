@@ -2,7 +2,7 @@ FROM vkushnir/pysnmp-py2
 MAINTAINER Vladimir Kushnir <vkushnir@gmail.com>
 
 LABEL \
-    version="1.1" \
+    version="1.2.0" \
     description="Backup running-config from network devices"
 
 ENV \
@@ -25,7 +25,12 @@ ENV \
     SRV_TFTP_ADDR="172.0.0.1" \
     SRV_TFTP_PATH="/var/tftp" \
     SRV_FTP_ADDR="172.0.0.1" \
-    SRV_FTP_PATH="/var/ftp"
+    SRV_FTP_PATH="/var/ftp" \
+    PUSHOVER_TOKEN="" \
+    PUSHOVER_USER="" \
+    PUSHOVER_DEVICE="" \
+    PUSHOVER_PIORITY="" \
+    PUSHOVER_SOUND=""
 
 RUN apk update && apk upgrade && \
     apk add --no-cache --update diffutils syslog-ng sqlite && \

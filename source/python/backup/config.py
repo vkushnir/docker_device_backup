@@ -9,7 +9,8 @@ import time
 from shutil import copyfile
 from subprocess import Popen, PIPE
 from stat import ST_MTIME
-from utils import eprint, sprint, str_to_bool, ConfigFileError, DiffProcedureError
+from syslog.utils import eprint, sprint, str_to_bool
+from syslog.classes import ConfigError, DiffError
 
 compare = str_to_bool(os.getenv('CONFIG_COMPARE'))
 """ generate diff file for configurations in one folder """
@@ -67,7 +68,7 @@ def do_compare(msg, opt=[]):
         diff = Popen(diff_cmd, stdout = df)
         diff.communicate()
         if diff.returncode > 1:
-            raise DiffProcedureError(' '.join(diff_cmd))
+            raise DiffError(' '.join(diff_cmd))
         return True
     os.chmod(diff_path, 0o664)
     os.chown(diff_path, -1, 4)
@@ -100,7 +101,7 @@ def same(first, second, opt=[]):
     diff.communicate()
     if diff.returncode < 2:
         return diff.returncode == 0
-    raise DiffProcedureError(' '.join(diff_cmd))
+    raise DiffError(' '.join(diff_cmd))
 
 def get_l0ip(ip):
     return "{0[0]:0>3}.{0[1]:0>3}.{0[2]:0>3}.{0[3]:0>3}".format(ip.split('.'))
@@ -121,10 +122,10 @@ def get_config_path(msg, config_folder=None, l0ip=None):
     while os.path.exists(config_path):
         n +=1
         if n == sys.maxsize:
-            raise ConfigFileError("n value too mush '{}'".format(n))
+            raise ConfigError("n value too mush '{}'".format(n))
         sec = time.time() - start
         if sec > 10:
-            raise ConfigFileError("file name generation too long {} sec".format(sec))
+            raise ConfigError("file name generation too long {} sec".format(sec))
         config_path = os.path.join(config_folder, file.format(syslog=msg, l0ip=l0ip, n=n))
     return config_path
 

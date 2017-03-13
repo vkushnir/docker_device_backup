@@ -6,7 +6,7 @@ __all__ = ['database']
 # Import required python libraries
 import os, sys
 import sqlite3
-from utils import sprint, eprint, str_to_bool
+from syslog.utils import sprint, eprint, str_to_bool
 
 count = 0
 folder = '/var/sqlite'
@@ -75,9 +75,9 @@ def load(src):
     if in_memory:
         try:
             with sqlite3.connect(database) as sql:
-                sql.execute("ATTACH DATABASE ? AS source; INSERT OR FAIL INTO main.queue SELECT * FROM source.queue;", (path, ))
-                sql.execute("ATTACH DATABASE ? AS source; INSERT OR FAIL INTO main.auth SELECT * FROM source.auth;", (path, ))
-                sql.execute("ATTACH DATABASE ? AS source; INSERT OR FAIL INTO main.vendors SELECT * FROM source.vendors;", (path, ))
+                sql.execute("ATTACH DATABASE ? AS source; INSERT OR FAIL INTO main.queue SELECT * FROM source.queue;", (src, ))
+                sql.execute("ATTACH DATABASE ? AS source; INSERT OR FAIL INTO main.auth SELECT * FROM source.auth;", (src, ))
+                sql.execute("ATTACH DATABASE ? AS source; INSERT OR FAIL INTO main.vendors SELECT * FROM source.vendors;", (src, ))
         except:
             eprint ("can't transfer database from source", sys.exc_info()[0])
 

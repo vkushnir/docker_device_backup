@@ -7,12 +7,21 @@
 
 ## Python Module
 
-### threads.py
+### backup
+
+##### threads.py
 - [ ] **BackupDeviceVendor** select TFTP/FTP server from database
-### snmp.py
+
+##### snmp.py
 - [ ] SNMPv3 authorithation support
-### server.py
+
+##### server.py
 - [ ] Load variables from linked container
 
-## SQLite
+#### SQLite
 - [x] Table **servers** with type and external address
+
+### notify
+
+##### pushover.py
+- [ ] Add option to request device name by SNMP
